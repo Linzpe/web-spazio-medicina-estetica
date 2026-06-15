@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spazio · Medicina Estética y Belleza · Barcelona</title>
+    <meta name="description" content="Spazio — Medicina estética y belleza en Barcelona. Bótox, rellenos, mesoterapia, depilación láser y más. En Rambla de Badal, Sants. Tel. 611 38 30 77.">
+    <meta property="og:title" content="Spazio · Medicina Estética y Belleza">
+    <meta property="og:description" content="Tu espacio de belleza en el corazón de Sants, Barcelona.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* ═══════════════════════════════════════
+           SPAZIO · MEDICINA ESTÉTICA Y BELLEZA
+           Palette: Crema · Tostado · Marfil
+        ═══════════════════════════════════════ */
+        :root {
+            --brand:      #9A7B5A;
+            --brand-dark: #7A5E40;
+            --brand-light:#F0E6D8;
+            --brand-xlt:  #FAF5EF;
+            --gold:       #C4A882;
+            --ink:        #211610;
+            --bg:         #FAF7F3;
+            --surface:    #FFFFFF;
+            --muted:      #8A7060;
+            --line:       #E8DDD0;
+            --font-head:  'Cormorant Garamond', serif;
+            --font-body:  'DM Sans', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        #nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 72px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 2.5rem;
+            transition: background .45s, box-shadow .45s;
+        }
+        #nav.scrolled {
+            background: rgba(250,247,243,.97);
+            box-shadow: 0 1px 0 var(--line);
+            backdrop-filter: blur(12px);
+        }
+        .nav-logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem; font-weight: 500; letter-spacing: .1em;
+            color: #fff; text-decoration: none;
+            transition: color .45s;
+        }
+        #nav.scrolled .nav-logo { color: var(--ink); }
+        .nav-logo em { font-style: italic; font-weight: 300; }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a {
+            font-size: .74rem; font-weight: 500; letter-spacing: .1em;
+            text-transform: uppercase; color: rgba(255,255,255,.75);
+            text-decoration: none; transition: color .2s;
+        }
+        #nav.scrolled .nav-links a { color: var(--muted); }
+        .nav-links a:hover { color: var(--brand) !important; }
+
+        .nav-wa {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .55rem 1.2rem; background: var(--brand);
+            color: #fff !important; font-size: .72rem !important;
+            font-weight: 600 !important; letter-spacing: .08em !important;
+            text-transform: uppercase !important; text-decoration: none;
+            border-radius: 2px; transition: background .2s;
+        }
+        .nav-wa:hover { background: var(--brand-dark) !important; }
+
+        /* ── BURGER ── */
+        #burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+        #burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background .4s, transform .3s, opacity .3s; }
+        #nav.scrolled #burger span { background: var(--ink); }
+        #burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #burger.open span:nth-child(2) { opacity: 0; }
+        #burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── MOBILE MENU ── */
+        #mobile-menu {
+            position: fixed; inset: 0; z-index: 99;
+            background: var(--ink);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem;
+            opacity: 0; pointer-events: none; transition: opacity .35s;
+        }
+        #mobile-menu.open { opacity: 1; pointer-events: all; }
+        #mobile-menu a {
+            font-family: var(--font-head); font-size: 2.2rem; font-weight: 400;
+            color: #fff; text-decoration: none; transition: color .2s;
+        }
+        #mobile-menu a:hover { color: var(--gold); }
+        .mobile-wa {
+            margin-top: 1rem;
+            display: inline-flex; align-items: center; gap: .6rem;
+            padding: .9rem 2.2rem; background: #25D366;
+            color: #fff !important; font-family: var(--font-body) !important;
+            font-size: .85rem !important; font-weight: 600 !important;
+            letter-spacing: .08em; text-transform: uppercase;
+            text-decoration: none; border-radius: 2px;
+        }
+
+        /* ── HERO ── */
+        #hero {
+            position: relative; min-height: 100svh;
+            display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background-image: url('fachada.png');
+            background-size: cover; background-position: center;
+            transform: scale(1.06); transition: transform 8s ease;
+            filter: brightness(.75) saturate(.9);
+        }
+        .hero-bg.loaded { transform: scale(1); }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(to top, rgba(33,22,16,.88) 0%, rgba(33,22,16,.5) 40%, rgba(33,22,16,.1) 100%),
+                linear-gradient(135deg, rgba(154,123,90,.15) 0%, transparent 60%);
+        }
+        .hero-content {
+            position: relative; z-index: 5;
+            padding: 0 2.5rem 6rem;
+            max-width: 1200px; margin: 0 auto; width: 100%;
+        }
+        .hero-kicker {
+            display: inline-flex; align-items: center; gap: .8rem;
+            font-size: .66rem; font-weight: 600; letter-spacing: .3em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem;
+        }
+        .hero-kicker::before { content:''; display:block; width:28px; height:1px; background:var(--gold); }
+        #hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3.5rem, 9vw, 8.5rem);
+            font-weight: 300; line-height: .92; color: #fff; letter-spacing: .02em;
+        }
+        #hero h1 em { font-style: italic; color: var(--gold); }
+        .hero-tagline {
+            margin-top: 1.8rem; font-size: clamp(.9rem, 1.5vw, 1.08rem);
+            font-weight: 300; color: rgba(255,255,255,.65);
+            max-width: 400px; line-height: 1.8; letter-spacing: .03em;
+        }
+        .hero-actions { margin-top: 2.8rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn-wa {
+            display: inline-flex; align-items: center; gap: .7rem;
+            padding: .95rem 2.2rem; background: #25D366; color: #fff;
+            font-family: var(--font-body); font-size: .76rem; font-weight: 600;
+            letter-spacing: .1em; text-transform: uppercase;
+            text-decoration: none; border-radius: 2px;
+            transition: background .25s, transform .25s;
+        }
+        .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: .6rem;
+            padding: .95rem 2.2rem; border: 1px solid rgba(255,255,255,.28);
+            color: rgba(255,255,255,.8); font-family: var(--font-body);
+            font-size: .76rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+            text-decoration: none; border-radius: 2px; transition: border-color .25s, color .25s;
+        }
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+        .scroll-hint {
+            position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
+            z-index: 5; color: rgba(255,255,255,.35); animation: bounce-h 2.2s ease infinite;
+        }
+        @keyframes bounce-h {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(7px); }
+        }
+
+        /* ── SECTIONS ── */
+        section { padding: 5.5rem 2.5rem; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+        .section-kicker {
+            font-size: .65rem; font-weight: 600; letter-spacing: .28em;
+            text-transform: uppercase; color: var(--brand);
+            display: flex; align-items: center; gap: .8rem; margin-bottom: .9rem;
+        }
+        .section-kicker::after { content:''; display:block; width:36px; height:1px; background:var(--brand); opacity:.5; }
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            font-weight: 400; line-height: 1.1; color: var(--ink);
+        }
+        .section-title em { font-style: italic; color: var(--brand); font-weight: 300; }
+
+        /* ── ABOUT / INTRO ── */
+        #sobre { background: var(--surface); border-top: 1px solid var(--line); }
+        .sobre-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem;
+        }
+        .sobre-text p { font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.1rem; }
+        .sobre-text p strong { color: var(--ink); font-weight: 600; }
+        .sobre-pillars {
+            display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: 2rem;
+        }
+        .pillar {
+            padding: 1rem 1.2rem;
+            background: var(--brand-xlt); border-left: 2px solid var(--gold);
+        }
+        .pillar-name { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
+        .pillar-desc { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+        .sobre-imgs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; position: relative;
+        }
+        .sobre-imgs img { width: 100%; object-fit: cover; display: block; }
+        .sobre-imgs .img-tall { grid-row: span 2; }
+
+        /* ── TRATAMIENTOS ── */
+        #tratamientos { background: var(--brand-xlt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .trat-grid {
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+            background: var(--line); border: 1px solid var(--line);
+            margin-top: 3rem;
+        }
+        .trat-item {
+            background: var(--surface); padding: 2rem 1.8rem;
+            transition: background .3s;
+        }
+        .trat-item:hover { background: var(--brand-light); }
+        .trat-num {
+            font-family: var(--font-head); font-size: 2.5rem; font-weight: 300;
+            color: var(--line); line-height: 1; margin-bottom: .8rem;
+        }
+        .trat-name {
+            font-family: var(--font-head); font-size: 1.35rem; font-weight: 500;
+            color: var(--ink); margin-bottom: .6rem; line-height: 1.2;
+        }
+        .trat-desc { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+        .trat-tags { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+        .trat-tag {
+            font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+            padding: .25rem .65rem; background: var(--brand-xlt); color: var(--brand);
+            border: 1px solid var(--line);
+        }
+
+        /* ── FOTOS ── */
+        #galeria { background: var(--surface); }
+        .galeria-layout {
+            display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-top: 3rem; min-height: 520px;
+        }
+        .gal-main { overflow: hidden; position: relative; }
+        .gal-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s; }
+        .gal-main:hover img { transform: scale(1.04); }
+        .gal-side { display: flex; flex-direction: column; gap: 1rem; }
+        .gal-side-item { flex: 1; overflow: hidden; }
+        .gal-side-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s; filter: saturate(.9); }
+        .gal-side-item:hover img { transform: scale(1.05); filter: saturate(1); }
+
+        /* ── CITA / CTA MID ── */
+        #cita-mid {
+            background: var(--ink); padding: 4rem 2.5rem;
+        }
+        .cita-mid-inner {
+            max-width: 800px; margin: 0 auto; text-align: center;
+        }
+        .cita-mid-inner .section-kicker { justify-content: center; color: var(--gold); }
+        .cita-mid-inner .section-kicker::after { background: var(--gold); }
+        .cita-mid-inner h2 {
+            font-family: var(--font-head); font-size: clamp(2rem,4vw,3.2rem);
+            font-weight: 300; color: #fff; margin-bottom: 1rem;
+        }
+        .cita-mid-inner h2 em { font-style: italic; color: var(--gold); }
+        .cita-mid-inner p { color: rgba(255,255,255,.55); font-size: .95rem; line-height: 1.75; margin-bottom: 2rem; }
+        .btn-wa-lg {
+            display: inline-flex; align-items: center; gap: .8rem;
+            padding: 1.1rem 2.8rem; background: #25D366; color: #fff;
+            font-family: var(--font-body); font-size: .8rem; font-weight: 600;
+            letter-spacing: .12em; text-transform: uppercase;
+            text-decoration: none; border-radius: 2px;
+            transition: background .25s, transform .25s;
+        }
+        .btn-wa-lg:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+        /* ── HORARIOS ── */
+        #horarios { background: var(--bg); }
+        .horarios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+        .horario-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: .9rem 0; border-bottom: 1px solid var(--line); font-size: .95rem;
+        }
+        .horario-row:last-child { border-bottom: none; }
+        .horario-day { font-weight: 600; color: var(--ink); }
+        .horario-time { color: var(--muted); }
+        .horario-time.open { color: var(--brand-dark); font-weight: 600; }
+        .horario-time.closed { color: #CCC; font-style: italic; }
+        .horarios-cta { background: var(--brand); padding: 2.5rem; }
+        .horarios-cta h3 { font-family: var(--font-head); font-size: 2rem; font-weight: 400; color: #fff; margin-bottom: .7rem; }
+        .horarios-cta p { font-size: .9rem; color: rgba(255,255,255,.75); margin-bottom: 1.8rem; line-height: 1.65; }
+        .cta-wa {
+            display: inline-flex; align-items: center; gap: .6rem;
+            padding: .9rem 1.8rem; background: #fff; color: var(--brand);
+            font-weight: 700; font-size: .85rem; letter-spacing: .06em;
+            text-decoration: none; border-radius: 2px; transition: background .2s;
+        }
+        .cta-wa:hover { background: var(--brand-xlt); }
+
+        /* ── UBICACIÓN ── */
+        #ubicacion { background: var(--surface); border-top: 1px solid var(--line); }
+        .ubicacion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 3rem; }
+        .info-item {
+            display: flex; gap: 1rem; align-items: flex-start;
+            padding: 1.2rem 0; border-bottom: 1px solid var(--line);
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-icon {
+            width: 40px; height: 40px; flex-shrink: 0;
+            background: var(--brand-light); border-radius: 2px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .info-icon svg { width: 18px; height: 18px; stroke: var(--brand); }
+        .info-text h4 { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
+        .info-text p, .info-text a { font-size: 1rem; color: var(--ink); text-decoration: none; line-height: 1.5; }
+        .info-text a:hover { color: var(--brand); }
+        .map-wrap { border: 1px solid var(--line); overflow: hidden; }
+        .map-wrap iframe { display: block; width: 100%; height: 380px; border: none; }
+
+        /* ── FLOATING WA ── */
+        .float-wa {
+            position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 200;
+            width: 56px; height: 56px; border-radius: 50%;
+            background: #25D366; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,.4);
+            transition: transform .25s, box-shadow .25s;
+        }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,.5); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--ink); color: rgba(255,255,255,.4);
+            padding: 2.5rem; display: flex; flex-wrap: wrap;
+            gap: 1rem; justify-content: space-between; align-items: center;
+            font-size: .78rem; letter-spacing: .05em;
+        }
+        .foot-logo { font-family: var(--font-head); font-size: 1.2rem; font-weight: 400; color: #fff; }
+        .foot-logo em { color: var(--gold); font-style: italic; font-weight: 300; }
+        footer a { color: rgba(255,255,255,.35); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        /* ── REVEAL ── */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            .sobre-grid, .horarios-grid, .ubicacion-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .trat-grid { grid-template-columns: repeat(2,1fr); }
+            .galeria-layout { grid-template-columns: 1fr; }
+            .gal-main { min-height: 320px; }
+            .gal-side { flex-direction: row; }
+            .gal-side-item { min-height: 200px; }
+        }
+        @media (max-width: 640px) {
+            section { padding: 3.5rem 1.25rem; }
+            #hero .hero-content { padding: 0 1.25rem 4rem; }
+            #nav, #cita-mid, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .nav-links { display: none; }
+            #burger { display: flex; }
+            .trat-grid { grid-template-columns: 1fr; }
+            .sobre-imgs { grid-template-columns: 1fr; }
+            .sobre-imgs .img-tall { grid-row: span 1; }
+        }
+        @media (min-width: 641px) { #mobile-menu { display: none !important; } }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <a href="#" class="nav-logo"><em>Spazio</em></a>
+    <div class="nav-links">
+        <a href="#sobre">El centro</a>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#horarios">Horarios</a>
+        <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="nav-wa">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Pedir cita
+        </a>
+    </div>
+    <button id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+    <a href="#sobre" class="mm-link">El centro</a>
+    <a href="#tratamientos" class="mm-link">Tratamientos</a>
+    <a href="#horarios" class="mm-link">Horarios</a>
+    <a href="#ubicacion" class="mm-link">Ubicación</a>
+    <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="mobile-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+    </a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-kicker">Medicina Estética · Sants, Barcelona</div>
+        <h1>Tu <em>belleza</em>,<br>con criterio.</h1>
+        <p class="hero-tagline">Tratamientos estéticos y médicos personalizados. Resultados naturales, en un espacio diseñado para ti.</p>
+        <div class="hero-actions">
+            <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="btn-wa">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Pedir cita por WhatsApp
+            </a>
+            <a href="#tratamientos" class="btn-ghost">Ver tratamientos</a>
+        </div>
+    </div>
+    <div class="scroll-hint">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+    <div class="section-inner">
+        <div class="sobre-grid">
+            <div class="reveal">
+                <div class="section-kicker">El centro</div>
+                <h2 class="section-title">Un espacio para <em>ti</em></h2>
+                <div style="height:1.6rem"></div>
+                <p>En <strong>Spazio</strong> combinamos medicina estética y tratamientos de belleza avanzados en un entorno íntimo y cuidado, en el corazón de Sants.</p>
+                <p>Nuestro equipo te acompaña desde la primera consulta, diseñando un plan personalizado que respeta tu naturalidad y potencia lo mejor de ti.</p>
+                <div class="sobre-pillars">
+                    <div class="pillar">
+                        <div class="pillar-name">Medicina estética</div>
+                        <div class="pillar-desc">Tratamientos médicos avalados</div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-name">Resultados naturales</div>
+                        <div class="pillar-desc">Sin artificios, con criterio</div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-name">Atención personalizada</div>
+                        <div class="pillar-desc">Cada caso, único</div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-name">Tecnología avanzada</div>
+                        <div class="pillar-desc">Equipos de última generación</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sobre-imgs reveal">
+                <img class="img-tall" src="foto1.png" alt="Interior de Spazio" loading="lazy" style="height:100%;max-height:480px;object-position:center">
+                <img src="foto2.png" alt="Tratamiento en Spazio" loading="lazy" style="height:220px;object-position:center top">
+                <img src="foto3.png" alt="Spazio medicina estética" loading="lazy" style="height:220px;object-position:center top">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRATAMIENTOS -->
+<section id="tratamientos">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-kicker">Nuestros servicios</div>
+            <h2 class="section-title">Tratamientos <em>a medida</em></h2>
+        </div>
+        <div class="trat-grid">
+            <div class="trat-item reveal">
+                <div class="trat-num">01</div>
+                <div class="trat-name">Medicina Estética Facial</div>
+                <p class="trat-desc">Rejuvenecimiento facial con técnicas mínimamente invasivas para resultados naturales y duraderos.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Bótox</span>
+                    <span class="trat-tag">Rellenos</span>
+                    <span class="trat-tag">Rinomodelación</span>
+                    <span class="trat-tag">Perfilado labios</span>
+                </div>
+            </div>
+            <div class="trat-item reveal">
+                <div class="trat-num">02</div>
+                <div class="trat-name">Mesoterapia</div>
+                <p class="trat-desc">Microinyecciones de principios activos que revitalizan, hidratan y tratan la piel desde el interior.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Facial</span>
+                    <span class="trat-tag">Capilar</span>
+                    <span class="trat-tag">Corporal</span>
+                </div>
+            </div>
+            <div class="trat-item reveal">
+                <div class="trat-num">03</div>
+                <div class="trat-name">Depilación Láser</div>
+                <p class="trat-desc">Eliminación definitiva del vello con tecnología láser de última generación, segura para todo tipo de piel.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Facial</span>
+                    <span class="trat-tag">Corporal</span>
+                    <span class="trat-tag">Zonas íntimas</span>
+                </div>
+            </div>
+            <div class="trat-item reveal">
+                <div class="trat-num">04</div>
+                <div class="trat-name">Tratamientos Faciales</div>
+                <p class="trat-desc">Protocolos personalizados para cada tipo de piel: limpieza profunda, hidratación intensa y luminosidad.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Hidrafacial</span>
+                    <span class="trat-tag">Peeling</span>
+                    <span class="trat-tag">Microagujas</span>
+                </div>
+            </div>
+            <div class="trat-item reveal">
+                <div class="trat-num">05</div>
+                <div class="trat-name">Remodelación Corporal</div>
+                <p class="trat-desc">Tratamientos no invasivos para reducir volumen, tratar la celulitis y reafirmar la piel del cuerpo.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Reducción grasa</span>
+                    <span class="trat-tag">Celulitis</span>
+                    <span class="trat-tag">Reafirmación</span>
+                </div>
+            </div>
+            <div class="trat-item reveal">
+                <div class="trat-num">06</div>
+                <div class="trat-name">Primera Consulta</div>
+                <p class="trat-desc">Valoración completa y sin compromiso. Diseñamos juntos el tratamiento más adecuado para tus objetivos.</p>
+                <div class="trat-tags">
+                    <span class="trat-tag">Personalizada</span>
+                    <span class="trat-tag">Sin compromiso</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-kicker">El espacio</div>
+            <h2 class="section-title">Un entorno <em>pensado para ti</em></h2>
+        </div>
+        <div class="galeria-layout">
+            <div class="gal-main reveal">
+                <img src="foto1.png" alt="Interior Spazio" loading="lazy">
+            </div>
+            <div class="gal-side">
+                <div class="gal-side-item reveal">
+                    <img src="foto2.png" alt="Tratamiento en Spazio" loading="lazy" style="object-position:center top">
+                </div>
+                <div class="gal-side-item reveal">
+                    <img src="foto3.png" alt="Spazio centro estético" loading="lazy" style="object-position:center top">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA MID -->
+<div id="cita-mid">
+    <div class="cita-mid-inner">
+        <div class="section-kicker">Sin esperas</div>
+        <h2>Reserva tu cita <em>ahora</em></h2>
+        <p>Escríbenos por WhatsApp y te confirmamos disponibilidad al momento. Primera consulta personalizada y sin compromiso.</p>
+        <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="btn-wa-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+        </a>
+    </div>
+</div>
+
+<!-- HORARIOS -->
+<section id="horarios">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-kicker">Cuándo visitarnos</div>
+            <h2 class="section-title">Horario <em>de apertura</em></h2>
+        </div>
+        <div class="horarios-grid">
+            <div class="reveal">
+                <div class="horario-row"><span class="horario-day">Lunes</span><span class="horario-time open">10:00 – 20:00</span></div>
+                <div class="horario-row"><span class="horario-day">Martes</span><span class="horario-time open">10:00 – 20:00</span></div>
+                <div class="horario-row"><span class="horario-day">Miércoles</span><span class="horario-time open">10:00 – 20:00</span></div>
+                <div class="horario-row"><span class="horario-day">Jueves</span><span class="horario-time open">10:00 – 20:00</span></div>
+                <div class="horario-row"><span class="horario-day">Viernes</span><span class="horario-time open">10:00 – 20:00</span></div>
+                <div class="horario-row"><span class="horario-day">Sábado</span><span class="horario-time open">10:00 – 18:00</span></div>
+                <div class="horario-row"><span class="horario-day">Domingo</span><span class="horario-time closed">Cerrado</span></div>
+            </div>
+            <div class="horarios-cta reveal">
+                <h3>¿Tienes una consulta?</h3>
+                <p>Escríbenos por WhatsApp y te atendemos en el momento. Primera valoración personalizada y sin compromiso.</p>
+                <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="cta-wa">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="color:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    611 38 30 77
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-kicker">Dónde estamos</div>
+            <h2 class="section-title">Encuéntranos <em>aquí</em></h2>
+        </div>
+        <div class="ubicacion-grid">
+            <div class="reveal">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Dirección</h4>
+                        <p>Rambla de Badal, 39<br>Sants-Montjuïc, 08014 Barcelona</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.17 1 2 2 0 012.19 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.62-.62a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener">611 38 30 77</a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <h4>Horario</h4>
+                        <p>Lun–Vie: 10:00 – 20:00<br>Sábado: 10:00 – 18:00<br>Domingo: Cerrado</p>
+                    </div>
+                </div>
+                <div style="margin-top:1.5rem">
+                    <a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="btn-wa" style="width:100%;justify-content:center">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Escribir por WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="map-wrap reveal">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993!2d2.1335778!3d41.3671654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4991c8267571d%3A0xf0c8e0de364f170f!2sSpazio%20-%20Medicina%20Estetica%20y%20Belleza!5e0!3m2!1ses!2ses!4v1718100000000!5m2!1ses!2ses"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    title="Ubicación de Spazio en Google Maps">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div>
+        <div class="foot-logo"><em>Spazio</em></div>
+        <div style="margin-top:.4rem">Medicina Estética y Belleza · Sants, Barcelona</div>
+    </div>
+    <div style="text-align:right">
+        <div>Rambla de Badal, 39 · 08014 Barcelona</div>
+        <div style="margin-top:.3rem"><a href="https://wa.me/34611383077" target="_blank">611 38 30 77</a></div>
+        <div style="margin-top:.6rem;font-size:.7rem;opacity:.4">Web by <a href="https://linzpe.github.io/web-portfolio/">Linz · Estudio Web</a></div>
+    </div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/34611383077?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20cita%20en%20Spazio" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+    // NAV
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hero bg
+    const heroBg = document.getElementById('heroBg');
+    heroBg.style.backgroundImage = "url('fachada.png')";
+    const img = new Image();
+    img.onload = () => heroBg.classList.add('loaded');
+    img.src = 'fachada.png';
+
+    // Burger
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mm-link, .mobile-wa').forEach(a => {
+        a.addEventListener('click', () => {
+            burger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
